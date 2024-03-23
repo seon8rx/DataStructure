@@ -42,7 +42,7 @@ int main(){
         default:
             break;
     }
-
+    return 0;
 }
 
 int get_int(){
