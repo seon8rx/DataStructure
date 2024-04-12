@@ -52,23 +52,30 @@ pNode last(pList p) {
 // For example, for list [0, 1, 2, 3, 4, 5, 6, 7], it returns 4.
 #if 1   // method 1 - slower version
 pNode half(pList p) {  
-
-	cout << "your code here: slower version ";
-
-	return nullptr;
+	int N = size(p);
+	pNode tmp = begin(p);
+	for(int i=0; i<N/2; i++){
+		tmp=tmp->next;
+	}
+	return tmp;
 }
 #else   // method 2 - rabbit and turtle
 pNode half(pList p) { 
+	pNode r = begin(p);
+	pNode t = begin(p);
+	
+	while(r!=end(p) || r->next!=end(p)){
+		r = r->next->next;
+		t = t->next;
+	}
 
-	cout << "your code here: rabbit and turtle ";
-
-	return nullptr;
+	return t;
 }
 #endif
 
 // returns the first node with val found, the tail sentinel node 
 // returned by end(p) if not found. O(n)
-#if 1  // for-loop version 
+#if 0  // for-loop version 
 pNode find(pList p, int val) {
 	DPRINT(cout << ">find val=" << val << endl;);
 
@@ -86,12 +93,9 @@ pNode find(pList p, int val) {
 	DPRINT(cout << ">find val=" << val << endl;);
 	
 	pNode curr = begin(p);
-
-	while(curr!=end(p)){
-		if(curr->data == val) return curr;
-		curr = curr->next;
+	while(curr!=end(p) && curr->data!=val){
+		curr=curr->next;
 	}
-
 	DPRINT(cout << "<find - not found\n";);
 	return curr;
 }
@@ -166,7 +170,7 @@ int size(pList p) {
 // This effectively increases the list size by one. O(1)
 void insert(pNode x, int val) {
 	DPRINT(cout << ">insert val=" << val << endl;);
-	pNode node = new Node{ val, x->prev, x };
+	pNode node = new Node{val, x->prev, x};
 	x->prev = x->prev->next = node;
 	DPRINT(cout << "<insert\n";);
 }
@@ -210,7 +214,10 @@ void pop_back(pList p) {
 // the value given.
 void pop(pList p, int val) {
 	DPRINT(cout << ">pop val=" << val << endl;);
-	cout << "your code here\n";
+	
+	pNode tmp = find(p, val);
+	if(tmp == p->tail) return;
+	erase(tmp);
 
 	DPRINT(cout << "<pop\n";);
 }
@@ -220,7 +227,7 @@ void pop(pList p, int val) {
 // erase(), which erases a node by its position node, this function 
 // removes nodes by its value. Unlike pop_all(), pop() removes the
 // first node with the value given. 
-#if 1   // step count over 2n version
+#if 0   // step count over 2n version
 void pop_all(pList p, int val) {
 	DPRINT(cout << ">pop_all val=" << val << endl;);
 
@@ -234,8 +241,10 @@ void pop_all(pList p, int val) {
 void pop_all(pList p, int val) {
 	DPRINT(cout << ">pop_all val=" << val << endl;);
 
-	for (pNode c = begin(p); c != end(p); c = c->next) {
-		cout << "your code here\n";
+	for (pNode c = begin(p); c != end(p);) {
+		pNode tmp = c->next;
+		if(c->data == val) erase(p, c);
+		c=tmp;
 	} 	// O(n) 
 } // faster version
 #endif
@@ -278,7 +287,7 @@ void push_back(pList p, int val) {
 // if x is not found, it does not push it. 
 void push(pList p, int val, int x) {
 	DPRINT(cout << ">push val=" << val << endl;);
-	cout << "your code here: use find()\n";
+	insert(find(p, x), val);
 	DPRINT(cout << "<push\n";);
 }
 
@@ -287,10 +296,24 @@ void push(pList p, int val, int x) {
 // are pushed to the end of the list. 
 void push_backN(pList p, int N) {
 	DPRINT(cout << ">push_backN N=" << N << endl;);
-	// int psize = size(p);
-	// int range = N + psize;
-	
-	cout << "your code here \n";
+	int psize = size(p);
+	int range = N + psize;
+	int tmp_value;
+
+	while(1){
+		if(N+size(p)<RAND_MAX){
+			tmp_value = rand()%(N+size(p)+1);
+		}else{
+			tmp_value = rand_extended();
+		}
+		if(tmp_value>=0 && tmp_value <=N+size(p)) break;
+	}
+
+	for(int i=0; i<N; i++){
+		push_back(p, tmp_value);
+		if (i % 10000 == 0)
+			cout << setw(7) << "\r\tpushing [" << i + psize << "]=" << tmp_value << "        ";
+	}
 
 	cout << "\n";
 	DPRINT(cout << "<push_backN N=" << N << endl;);
@@ -366,33 +389,21 @@ bool more(int x, int y) { return x > y; }   // for descending order
 // returns the node of which value is larger than x found first, 
 // the tail sentinel node which is returned by end(p) otherwise. 
 pNode more(pList p, int z) {
-	DPRINT(cout << ">find first Node with the value greater than " << z << endl;);
-	
-	pNode curr = begin(p);
+	pNode x = begin(p);  
 
-	while(curr!=end(p)){
-		if(curr->data > z) return curr;
-		curr = curr->next;
-	}
+	cout << "your code here\n";
 
-	DPRINT(cout << "<find - not found\n";);
-	return curr;
+	return x;
 }
 
 // returns the node of which value is smaller than x found first, 
 // the tail sentinel node which is returned by end(p) otherwise. 
 pNode less(pList p, int z) {
-	DPRINT(cout << ">find first Node with the value less than " << z << endl;);
-	
-	pNode curr = begin(p);
+	pNode x = begin(p);
 
-	while(curr!=end(p)){
-		if(curr->data < z) return curr;
-		curr = curr->next;
-	}
+	cout << "your code here\n";
 
-	DPRINT(cout << "<find - not found\n";);
-	return curr;
+	return x;
 }
 
 // returns true if sorted according to the compare function provided
@@ -453,12 +464,18 @@ void show(pList p, bool all, int show_n) {
 		cout << " > " << curr->data;
 
 	if (N > show_n * 2)
-		cout << "\n\t...  " << "your code here" << "  ...\n";
+		cout << "\n\t...  " << half(p)->data << "  ...\n";
 	else
 		cout << "\n";
 
 	// print the last show_n data items
 	// move the pointer to the place where show_n data items are left.
-	cout << "your code here";
+
+	pNode tmp = begin(p);
+	for(int i=0; i<size(p)-show_n; i++){
+		tmp = tmp->next;
+	}
+	for (i = 1, curr = tmp; curr != end(p) && i <= show_n; curr = curr->next, i++)
+		cout << " > " << curr->data;
 	cout << "\n";
 }
