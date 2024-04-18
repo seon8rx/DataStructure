@@ -46,10 +46,8 @@ struct List{
 	int   size; // size of list, optional
 	// constructor instantiates a list, sets doubly-linked head and tail
 	List() {
-		head = new Node{};
-		tail = new Node{};
-		head->next = tail;
-		tail->prev = head;
+		head = new Node{};    tail = new Node{};
+		head->next = tail;    tail->prev = head;
 		size = 0;
 	}
 	~List() {}
