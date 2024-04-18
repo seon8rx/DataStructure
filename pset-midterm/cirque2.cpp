@@ -17,18 +17,7 @@ struct CircularQueue {
   int maxlen;
   const string dash = "-";
 
-  CircularQueue(){
-    maxlen = 4;
-
-    items = new string[maxlen];
-
-    for (int i = 0; i < maxlen; i++) 
-        items[i] = dash;
-    front = -1;
-    back = -1;
-  }
-
-  CircularQueue(int capa){
+  CircularQueue(int capa=4){
     maxlen = capa;
 
     items = new string[maxlen];
