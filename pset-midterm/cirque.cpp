@@ -1,3 +1,9 @@
+/*
+On my honor, I pledge that I have neither received nor provided improper assistance in the
+completion of this assignment.
+서명: 김성규 학번: 22100110
+*/
+
 // implement a circular queue with q->maxlen and perform a simple test
 // - Keep the FIFO principle, 
 //   Enqueue is allowed while popping the least recent item if necessary.
@@ -125,24 +131,55 @@ void show_qstat(cirque q) {
 
 // show queue items[] as it is stored
 void show_items(cirque q) {             // show items[]
-  cout << "Items:[ ";
-  for(int i = 0; i < q->maxlen; i++)
+  if(q->shown >= q->maxlen){
+    cout << "Items:[ ";
+    for(int i = 0; i < q->maxlen; i++)
       cout << q->items[i] << ' ';
-  cout << "]\n"; 
+    cout << "]\n"; 
+  }else{
+    cout << "Items: [ ";
+    for(int i=0; i<q->shown/2; i++)
+      cout << q->items[i] << ' ';
+    cout << "... ";
+    for(int i=q->maxlen-q->shown/2; i<q->maxlen; i++)
+      cout << q->items[i] << ' ';
+    cout << "]\n";
+  }
 }
 
 // show queue from 'front' to 'back'
-void show_queue(cirque q) {             
-  cout << "Queue:[ ";
+void show_queue(cirque q) {   
+  if(q->shown >= size(q)){
+    cout << "Queue:[ ";
   
-  int index = q->front;
+    int index = q->front;
   
-  for(int i=0; i<size(q); i++){
-    cout << q->items[index];
-    if(i!=size(q)-1) cout<<" ";
-    index++;
-    index = index % q->maxlen;
+    for(int i=0; i<size(q); i++){
+      cout << q->items[index];
+      if(i!=size(q)-1) cout<<" ";
+      index++;
+      index = index % q->maxlen;
   }
+  cout << " ]\n";
 
-  cout << " ]\n"; 
-} 
+  }else{
+    cout << "Queue:[ ";
+
+    int index = q->front;
+    for(int i=0; i<q->shown/2; i++){
+      index = index%q->maxlen;
+      cout << q->items[index] << ' ';
+      index++;
+    }
+    cout << "... ";
+
+    int indexx = q->maxlen + q->back - q->shown/2 + 1;
+    for(int i=0; i<q->shown/2; i++){
+      indexx = indexx%q->maxlen;
+      cout << q->items[indexx] << ' ';
+      indexx++;
+    }
+
+    cout << " ]\n";
+  }
+}

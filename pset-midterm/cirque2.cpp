@@ -1,3 +1,9 @@
+/*
+On my honor, I pledge that I have neither received nor provided improper assistance in the
+completion of this assignment.
+서명: 김성규 학번: 22100110
+*/
+
 // implement a circular queue with q->maxlen and perform a simple test
 // - Keep the FIFO principle, 
 //   Enqueue is allowed while popping the least recent item if necessary.
