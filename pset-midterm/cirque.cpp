@@ -107,12 +107,12 @@ string dequeue(cirque q){
   q->items[q->front] = q->dash;       // a placeholder
 
   q->front++;
-  q->front = q->front % q->maxlen;
 
   if(q->front == q->back+1){
     q->front = -1;
     q->back = -1;
   }
+  q->front = q->front % q->maxlen;
   
   return item;
 }
@@ -126,7 +126,7 @@ void clear(cirque q){                  // q->items are cleared, no change in cap
 // show queue status
 void show_qstat(cirque q) {
   cout << "Front:back=[" << q->front << ":"<< q->back << "]";
-  cout << " q->maxlen=" << q->maxlen << " size=" << size(q) << endl; 
+  cout << " q->maxlen=" << q->maxlen << " size=" << size(q) << " show n=" << q->shown << endl; 
 }
 
 // show queue items[] as it is stored
