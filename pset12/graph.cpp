@@ -1,3 +1,9 @@
+/*
+On my honor, I pledge that I have neither received nor provided improper assistance in the
+completion of this assignment.
+서명: 김성규 학번: 22100110
+*/
+
 /**
 *  The graph.cpp and graph.h implements an undirected/directed graph of 
 *  vertices named 0 through V - 1.

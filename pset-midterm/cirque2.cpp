@@ -114,7 +114,7 @@ void show_queue(cirque q) {
 } 
 
 int main() {
-    cirque q = new CircularQueue(6);
+    cirque q = new CircularQueue();
     show_qstat(q); show_items(q); show_queue(q); cout << endl;
   
     enqueue(q, "a");
